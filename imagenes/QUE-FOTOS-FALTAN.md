@@ -40,3 +40,9 @@ el instructivo del panel de control a la vista del público). Conviene
 abrirlo y sacarle una captura antes de la llamada: es el argumento
 más fuerte que tiene este caso y puede desaparecer el día que alguien
 publique algo ahí.
+
+## El logo
+
+Este negocio SI tiene su logo a la vista: va estampado en las tres
+fotos propias de la galeria. Un archivo suelto en PNG igual sirve para
+ponerlo en la cabecera — pedirlo en la llamada.

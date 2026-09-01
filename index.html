@@ -48,10 +48,10 @@
 
 <!-- ========= PORTADA ========= -->
 <section class="portada portada--foto" id="portada" aria-labelledby="t-portada">
-  <!-- LA FOTO DE PORTADA: foto real del negocio. Entra por la derecha y
-       se DISUELVE hacia el titular, que conserva el fondo limpio. -->
+  <!-- FONDO DE PORTADA: 2560 px, nitido. Se disuelve hacia el titular
+       con un gradiente lateral, no con desenfoque. -->
   <div class="portada__foto" aria-hidden="true">
-    <img src="imagenes/monada-03.jpg" width="649" height="432"
+    <img src="imagenes/port-01.jpg" width="2560" height="1707"
          decoding="async" fetchpriority="high" alt="">
   </div>
 
@@ -79,6 +79,16 @@
 
 <!-- ========= LA PIEZA FIRMA — SPLIT STICKY (estructura G) ========= -->
 <section class="combo" id="combo" aria-labelledby="t-combo">
+  <!-- AURA DE COLOR: la foto de rubro reventada a desenfoque. No se lee
+       como imagen: aporta color y luz detras de una seccion que si no
+       seria fondo plano. Aca el desenfoque SI es el efecto, no un parche,
+       y por eso el archivo va chico: a 64 px de blur, mas resolucion no
+       cambia nada. Sin loading=lazy porque el elemento va en absoluto con
+       z-index negativo y el navegador nunca lo considera visible. -->
+  <div class="aura" aria-hidden="true">
+    <img src="imagenes/aura-01.jpg" width="900" height="506" decoding="async" alt="">
+  </div>
+
 
   <!-- El lado fijo: LA TINA. Dibujada en CSS, cero bytes de imagen. -->
   <div class="combo__fijo">
@@ -141,6 +151,19 @@
 </section>
 
 <!-- ========= EL BAÑO SIN DRAMA ========= -->
+<!-- ========= MEDIA PANTALLA ========= -->
+<section class="mitades" aria-labelledby="t-mitades">
+  <div class="mitades__foto">
+    <img src="imagenes/media-01.jpg" width="2200" height="1468"
+         loading="lazy" decoding="async" alt="">
+  </div>
+  <div class="mitades__texto">
+    <p class="mitades__ante">La mitad que nadie explica</p>
+    <h2 id="t-mitades">El baño se ve. La tusa se nota un mes.</h2>
+    <p>Un baño mal secado se paga con hongos, y una tusa mal hecha se paga con un mes de perro raro. Por eso el orden importa: primero se revisa el pelaje, después se decide si se peina o se corta, y recién ahí se moja. Contarlo antes evita la conversación incómoda de después.</p>
+  </div>
+</section>
+
 <section class="agua" id="agua" aria-labelledby="t-agua">
   <div class="agua__cabecera">
     <p class="antetitulo antetitulo--claro">El perro al que no le gusta el agua</p>
@@ -184,12 +207,37 @@
 </section>
 
 <!-- ========= EL CIERRE — T1 ========= -->
+<!-- ========= LA CITA A SANGRE ========= -->
+<section class="cita" aria-labelledby="t-cita">
+  <div class="cita__foto" aria-hidden="true">
+    <img src="imagenes/cita-01.jpg" width="2200" height="1468"
+         loading="lazy" decoding="async" alt="">
+  </div>
+  <blockquote class="cita__texto">
+    <p id="t-cita">Un viaje, dos cosas resueltas<br>
+      <span class="cita__eco">Veterinaria y peluquería bajo el mismo techo</span></p>
+  </blockquote>
+</section>
+
 <section class="cierre" id="llamar" aria-labelledby="t-cierre">
   <p class="cierre__rot">Para pedir hora</p>
   <h2 id="t-cierre" class="cierre__tel">
     <a href="tel:+56982303142">9 8230 3142</a>
   </h2>
   <p class="cierre__pie">Es el número publicado en su ficha de Google.</p>
+</section>
+
+<!-- ========= LA TIRA ========= -->
+<section class="tira" aria-label="Tres imágenes del oficio">
+  <figure class="tira__pieza">
+    <img src="imagenes/tira-01.jpg" width="1100" height="618" loading="lazy" decoding="async" alt="Tijera despejando el pelo de las patas de un perro sobre la mesa.">
+  </figure>
+  <figure class="tira__pieza">
+    <img src="imagenes/tira-02.jpg" width="1100" height="618" loading="lazy" decoding="async" alt="Corte de uñas a un perro, sujetando la pata con las dos manos.">
+  </figure>
+  <figure class="tira__pieza">
+    <img src="imagenes/tirab-01.jpg" width="1100" height="618" loading="lazy" decoding="async" alt="Perro pequeño sobre la mesa de consulta veterinaria.">
+  </figure>
 </section>
 
 <!-- ========= LAS FOTOS ========= -->

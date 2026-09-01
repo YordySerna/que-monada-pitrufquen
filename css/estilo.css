@@ -444,62 +444,6 @@ h1 {
   .js .rev { opacity: 1; transform: none; }
 }
 
-/* ══════ LA FOTO EN LA PORTADA ══════
-   La foto real del negocio entra por la derecha y se DISUELVE hacia el
-   titular. No es un velo de color puesto encima: es la imagen misma
-   perdiendo opacidad con mask-image, asi que el texto conserva el fondo
-   limpio y las medidas de contraste auditadas siguen valiendo. */
-.portada--foto { padding-top: clamp(1.5rem, 3.5vh, 3.5rem); }
-.portada--foto .portada__texto { max-width: 40rem; }
-
-.portada__foto {
-  position: absolute; z-index: 0;
-  inset: 0 0 0 auto;
-  width: min(57%, 45rem);
-  pointer-events: none;
-}
-.portada__foto img {
-  display: block; width: 100%; height: 100%;
-  object-fit: cover; object-position: 58% 45%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.30) 24%, #000 60%, #000 100%);
-          mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.30) 24%, #000 60%, #000 100%);
-}
-/* El velo repite el fondo de la pagina: la foto queda de fondo, no de
-   protagonista, y el titular sigue mandando. */
-.portada__foto::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(90deg,
-              var(--crudo) 0%, rgba(246,243,236,.58) 32%, rgba(246,243,236,.10) 72%);
-}
-
-/* La foto ENTRA: viene desde la derecha, un poco mas grande, y asienta. */
-.js .portada--foto .portada__foto { opacity: 0; transform: translateX(3rem) scale(1.04); }
-.js .portada--foto.ok .portada__foto {
-  opacity: 1; transform: none;
-  transition: opacity .9s ease, transform 1.1s cubic-bezier(.2,.7,.2,1);
-}
-/* .portada entra al observador SOLO para gatillar la foto: la seccion
-   entera no debe desvanecerse (el titular tiene su propia entrada). */
-.js .portada.rev,
-.js .portada.rev.ok { opacity: 1; transform: none; transition: none; }
-
-/* En celular no hay costado donde disolver: la foto pasa a ser franja
-   de arriba que se deshace hacia abajo, y el texto baja. */
-@media (max-width: 860px) {
-  .portada--foto { padding-top: 37svh; }
-  .portada__foto { inset: 0 0 auto 0; width: 100%; height: 33svh; }
-  .portada__foto img {
-    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,.22) 85%, transparent 100%);
-            mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,.22) 85%, transparent 100%);
-  }
-  .portada__foto::after {
-    background: linear-gradient(180deg,
-                rgba(246,243,236,.12) 0%, rgba(246,243,236,.50) 68%, var(--crudo) 100%);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .js .portada--foto .portada__foto { opacity: 1; transform: none; }
-}
 
 /* ══════ LAS FOTOS ══════
    Grilla dura, igual que el resto de la pagina: dos arriba y una ancha
@@ -555,4 +499,194 @@ h1 {
 }
 @media (prefers-reduced-motion: reduce) {
   .js .gal.rev { opacity: 1; transform: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAS IMÁGENES DE RUBRO — seis tratamientos
+   ══════════════════════════════════════════════════════════════════
+   La página no puede ser texto sobre fondo plano de arriba abajo. Van
+   seis apariciones distintas, para que el ojo no vea siempre lo mismo:
+   portada disuelta, aura de color, media pantalla, cita a sangre, tira
+   de tres, y la galería con las fotos propias del negocio.
+
+   LA REGLA: la foto no se ensucia para poder leer encima. Lo que
+   sostiene el contraste es un gradiente por zona. La ÚNICA excepción es
+   el aura, donde el desenfoque no es un parche sino el efecto entero.
+
+   Procedencia de cada archivo: imagenes/FUENTES.txt
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── 1 · PORTADA ── */
+.portada--foto { padding-top: clamp(1.5rem, 3.5vh, 3.5rem); }
+.portada--foto .portada__texto { max-width: 40rem; }
+.portada__foto { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
+.portada__foto img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: 58% 44%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 28%,
+              rgba(0,0,0,.18) 42%, rgba(0,0,0,.66) 58%, #000 72%, #000 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, transparent 28%,
+              rgba(0,0,0,.18) 42%, rgba(0,0,0,.66) 58%, #000 72%, #000 100%);
+}
+.portada__foto::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--crudo) 0%, var(--crudo) 30%,
+              rgba(246,243,236,.66) 46%, rgba(246,243,236,.22) 68%, rgba(246,243,236,.06) 86%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .portada__foto img { animation: respira 46s ease-in-out infinite alternate; }
+}
+@keyframes respira {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to   { transform: scale(1.11) translate3d(-1.8%, -1.2%, 0); }
+}
+.js .portada--foto .portada__foto { opacity: 0; }
+.js .portada--foto.ok .portada__foto { opacity: 1; transition: opacity 1.1s ease; }
+.js .portada.rev,
+.js .portada.rev.ok { opacity: 1; transform: none; transition: none; }
+@media (max-width: 860px) {
+  .portada--foto { padding-top: 36svh; }
+  .portada__foto img {
+    object-position: 50% 44%;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 30%, rgba(0,0,0,.34) 58%, transparent 78%);
+            mask-image: linear-gradient(180deg, #000 0%, #000 30%, rgba(0,0,0,.34) 58%, transparent 78%);
+  }
+  .portada__foto::after {
+    background: linear-gradient(180deg, rgba(246,243,236,0) 0%, rgba(246,243,236,.30) 42%, var(--crudo) 70%);
+  }
+}
+
+/* ── 2 · AURA DE COLOR ── */
+#combo { position: relative; isolation: isolate; overflow: hidden; }
+.aura { position: absolute; z-index: -1; inset: -12% -8% auto -8%; height: 78%; pointer-events: none; }
+.aura img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  /* Acá el desenfoque ES el efecto: la foto deja de leerse y queda la luz. */
+  filter: blur(64px) saturate(1.45);
+  opacity: .38;
+  transform: scale(1.25);
+  /* Y se apaga EN LA IMAGEN, no con un velo encima. Un ::after que pinta
+     el fondo apaga solo DENTRO del div: en el borde de abajo queda un
+     corte recto a media seccion. Con la mascara la imagen misma se
+     desvanece y no hay borde que cortar. */
+  -webkit-mask-image: radial-gradient(ellipse 74% 58% at 50% 34%,
+              #000 0%, #000 26%, rgba(0,0,0,.55) 52%, transparent 82%);
+          mask-image: radial-gradient(ellipse 74% 58% at 50% 34%,
+              #000 0%, #000 26%, rgba(0,0,0,.55) 52%, transparent 82%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .aura img { animation: deriva-aura 68s ease-in-out infinite alternate; }
+}
+@keyframes deriva-aura {
+  from { transform: scale(1.25) translate3d(-3%, 0, 0); }
+  to   { transform: scale(1.38) translate3d(3%, -2%, 0); }
+}
+
+/* ── 3 · MEDIA PANTALLA ── */
+.mitades {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
+  background: var(--crudo-2);
+  /* overflow hidden porque las entradas son laterales: mientras el texto
+     se desliza y la foto entra a escala, ambos se salen unos píxeles y
+     aparece scroll horizontal por un segundo. */
+  overflow: hidden;
+}
+.mitades__foto { position: relative; min-height: 62svh; overflow: hidden; }
+.mitades__foto img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 52% 50%; }
+.mitades__texto {
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.4rem, 4vw, 3.5rem);
+  display: flex; flex-direction: column; justify-content: center;
+  color: var(--tinta);
+}
+.mitades__ante {
+  font-family: var(--dato); font-size: .72rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--gris); margin: 0 0 .9rem;
+}
+.mitades h2 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(1.7rem, 3.6vw, 2.8rem); line-height: 1.08;
+  margin: 0 0 1rem; color: var(--tinta);
+}
+.mitades__texto p:last-child {
+  margin: 0; font-size: 1rem; line-height: 1.65; color: var(--tinta); max-width: 34rem;
+}
+.js .mitades__texto.rev { opacity: 0; transform: translateX(1.6rem); }
+.js .mitades__foto.rev  { opacity: 0; transform: scale(1.04); }
+.js .mitades__texto.rev.ok,
+.js .mitades__foto.rev.ok {
+  opacity: 1; transform: none;
+  transition: opacity .9s ease, transform 1.1s cubic-bezier(.2,.7,.2,1);
+}
+@media (max-width: 780px) {
+  .mitades { grid-template-columns: 1fr; }
+  .mitades__foto { min-height: 44svh; }
+}
+
+/* ── 4 · LA CITA A SANGRE ── */
+.cita {
+  position: relative; isolation: isolate; min-height: 70svh;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(3rem, 9vw, 7rem) clamp(1.2rem, 5vw, 4rem);
+  background: var(--crudo); overflow: hidden;
+}
+.cita__foto { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.cita__foto img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 44%; }
+/* Velo parejo y fuerte: el texto va centrado y grande, encima de la foto
+   entera. Calculado sobre el peor caso —imagen del color contrario
+   detrás— para que el ratio aguante sin ensuciar la imagen. */
+.cita__foto::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(246,243,236,.72) 0%,
+              rgba(246,243,236,.84) 45%, rgba(246,243,236,.90) 100%);
+}
+.cita__texto { margin: 0; max-width: 42rem; text-align: center; color: var(--tinta); }
+.cita__texto p {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(1.8rem, 4.6vw, 3.2rem); line-height: 1.16;
+  margin: 0; color: var(--tinta);
+}
+.cita__eco {
+  display: block; margin-top: 1.1rem;
+  font-family: var(--dato); font-size: .82rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--agua);
+}
+.js .cita__texto.rev { opacity: 0; transform: translateY(16px); }
+.js .cita__texto.rev.ok {
+  opacity: 1; transform: none;
+  transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cita__foto img { animation: respira-cita 58s ease-in-out infinite alternate; }
+}
+@keyframes respira-cita {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to   { transform: scale(1.13) translate3d(1.4%, -1%, 0); }
+}
+
+/* ── 5 · LA TIRA ── */
+.tira { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--linea); }
+.tira__pieza { margin: 0; overflow: hidden; height: 34svh; min-height: 220px; }
+.tira__pieza img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.1s cubic-bezier(.2,.7,.2,1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tira__pieza:hover img { transform: scale(1.05); }
+}
+.js .tira__pieza.rev { opacity: 0; transform: translateY(1.4rem); }
+.js .tira__pieza.rev.ok {
+  opacity: 1; transform: none;
+  transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1);
+}
+.js .tira__pieza.rev.ok:nth-child(2) { transition-delay: .1s; }
+.js .tira__pieza.rev.ok:nth-child(3) { transition-delay: .2s; }
+@media (max-width: 700px) {
+  .tira { grid-template-columns: 1fr 1fr; }
+  .tira__pieza:last-child { grid-column: 1 / -1; height: 28svh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .portada--foto .portada__foto,
+  .js .mitades__texto.rev, .js .mitades__foto.rev,
+  .js .cita__texto.rev, .js .tira__pieza.rev { opacity: 1; transform: none; }
 }
