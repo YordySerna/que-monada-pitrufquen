@@ -47,7 +47,14 @@
 <main>
 
 <!-- ========= PORTADA ========= -->
-<section class="portada" id="portada" aria-labelledby="t-portada">
+<section class="portada portada--foto" id="portada" aria-labelledby="t-portada">
+  <!-- LA FOTO DE PORTADA: foto real del negocio. Entra por la derecha y
+       se DISUELVE hacia el titular, que conserva el fondo limpio. -->
+  <div class="portada__foto" aria-hidden="true">
+    <img src="imagenes/monada-03.jpg" width="649" height="432"
+         decoding="async" fetchpriority="high" alt="">
+  </div>
+
   <div class="pompas" aria-hidden="true">
     <span class="pompa pompa--1"></span>
     <span class="pompa pompa--2"></span>
@@ -183,6 +190,30 @@
     <a href="tel:+56982303142">9 8230 3142</a>
   </h2>
   <p class="cierre__pie">Es el número publicado en su ficha de Google.</p>
+</section>
+
+<!-- ========= LAS FOTOS ========= -->
+<section class="galeria" aria-labelledby="t-galeria">
+  <h2 id="t-galeria" class="galeria__titulo">Los que salieron de la peluquería</h2>
+  <p class="galeria__nota">Fotos publicadas por la propia veterinaria: llevan su logo estampado en la esquina. No son de banco de imágenes — son perros que atendieron ellos.</p>
+  <div class="galeria__grilla">
+    <figure class="gal gal--izq">
+      <img src="imagenes/monada-01.jpg" width="649" height="432" loading="lazy" decoding="async"
+           alt="Dos poodles blancos recién tusados, con pañoleta puesta, mirando a la cámara.">
+      <figcaption>Dos del mismo día. La tusa y la pañoleta van incluidas.</figcaption>
+    </figure>
+    <figure class="gal gal--der">
+      <img src="imagenes/monada-02.jpg" width="648" height="486" loading="lazy" decoding="async"
+           alt="Fachada del local, revestida en zinc gris, con el letrero del logo sobre la puerta.">
+      <figcaption>Así se ve desde la calle: el letrero con el logo sobre la puerta.</figcaption>
+    </figure>
+    <figure class="gal gal--abajo">
+      <img src="imagenes/monada-03.jpg" width="649" height="432" loading="lazy" decoding="async"
+           alt="Poodle blanco con pañoleta azul de lunares, recién peluqueado.">
+      <figcaption>La misma de la portada. Pañoleta azul de lunares.</figcaption>
+    </figure>
+  </div>
+  <p class="galeria__falta">falta: el antes y el después del mismo perro, y una del box de atención. Con eso la página deja de mostrar el resultado y pasa a mostrar el trabajo.</p>
 </section>
 
 </main>

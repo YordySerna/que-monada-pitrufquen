@@ -443,3 +443,116 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   .js .rev { opacity: 1; transform: none; }
 }
+
+/* ══════ LA FOTO EN LA PORTADA ══════
+   La foto real del negocio entra por la derecha y se DISUELVE hacia el
+   titular. No es un velo de color puesto encima: es la imagen misma
+   perdiendo opacidad con mask-image, asi que el texto conserva el fondo
+   limpio y las medidas de contraste auditadas siguen valiendo. */
+.portada--foto { padding-top: clamp(1.5rem, 3.5vh, 3.5rem); }
+.portada--foto .portada__texto { max-width: 40rem; }
+
+.portada__foto {
+  position: absolute; z-index: 0;
+  inset: 0 0 0 auto;
+  width: min(57%, 45rem);
+  pointer-events: none;
+}
+.portada__foto img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: 58% 45%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.30) 24%, #000 60%, #000 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.30) 24%, #000 60%, #000 100%);
+}
+/* El velo repite el fondo de la pagina: la foto queda de fondo, no de
+   protagonista, y el titular sigue mandando. */
+.portada__foto::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+              var(--crudo) 0%, rgba(246,243,236,.58) 32%, rgba(246,243,236,.10) 72%);
+}
+
+/* La foto ENTRA: viene desde la derecha, un poco mas grande, y asienta. */
+.js .portada--foto .portada__foto { opacity: 0; transform: translateX(3rem) scale(1.04); }
+.js .portada--foto.ok .portada__foto {
+  opacity: 1; transform: none;
+  transition: opacity .9s ease, transform 1.1s cubic-bezier(.2,.7,.2,1);
+}
+/* .portada entra al observador SOLO para gatillar la foto: la seccion
+   entera no debe desvanecerse (el titular tiene su propia entrada). */
+.js .portada.rev,
+.js .portada.rev.ok { opacity: 1; transform: none; transition: none; }
+
+/* En celular no hay costado donde disolver: la foto pasa a ser franja
+   de arriba que se deshace hacia abajo, y el texto baja. */
+@media (max-width: 860px) {
+  .portada--foto { padding-top: 37svh; }
+  .portada__foto { inset: 0 0 auto 0; width: 100%; height: 33svh; }
+  .portada__foto img {
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,.22) 85%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,.22) 85%, transparent 100%);
+  }
+  .portada__foto::after {
+    background: linear-gradient(180deg,
+                rgba(246,243,236,.12) 0%, rgba(246,243,236,.50) 68%, var(--crudo) 100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .portada--foto .portada__foto { opacity: 1; transform: none; }
+}
+
+/* ══════ LAS FOTOS ══════
+   Grilla dura, igual que el resto de la pagina: dos arriba y una ancha
+   abajo. Cada figura llega desde un lado distinto — izquierda, derecha,
+   abajo — con un retardo escalonado, para que se lean como tres cosas
+   puestas sobre la mesa y no como un bloque que se enciende. */
+.galeria {
+  padding: clamp(3rem, 8vw, 6rem) clamp(1.2rem, 5vw, 4rem);
+  max-width: 78rem; margin: 0 auto;
+}
+.galeria__titulo {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(1.9rem, 4.4vw, 3.1rem); line-height: 1.05;
+  margin: 0 0 .6rem; color: var(--tinta);
+}
+.galeria__nota {
+  max-width: 40rem; margin: 0 0 2.2rem;
+  color: var(--gris); font-size: .96rem; line-height: 1.6;
+}
+.galeria__grilla { display: grid; gap: clamp(.9rem, 2vw, 1.6rem); grid-template-columns: 1fr 1fr; }
+.gal { margin: 0; background: var(--crudo-2); border: 1px solid var(--linea); padding: .6rem; }
+.gal--abajo { grid-column: 1 / -1; }
+.gal img {
+  display: block; width: 100%; height: 100%;
+  aspect-ratio: 3 / 2; object-fit: cover;
+  border-bottom: 3px solid var(--agua);
+}
+.gal--abajo img { aspect-ratio: 16 / 7; }
+.gal figcaption {
+  font-family: var(--dato); font-size: .74rem; line-height: 1.5;
+  color: var(--gris); padding: .65rem .2rem 0;
+}
+.galeria__falta {
+  font-family: var(--dato); font-size: .74rem; color: var(--gris);
+  margin: 1.4rem 0 0; padding-left: 1.1rem; position: relative;
+}
+.galeria__falta::before { content: '·'; position: absolute; left: .3rem; }
+
+.js .gal.rev { opacity: 0; }
+.js .gal--izq.rev   { transform: translateX(-2.4rem); }
+.js .gal--der.rev   { transform: translateX(2.4rem); }
+.js .gal--abajo.rev { transform: translateY(2.4rem) scale(.98); }
+.js .gal.rev.ok {
+  opacity: 1; transform: none;
+  transition: opacity .8s ease, transform 1s cubic-bezier(.2,.7,.2,1);
+}
+.js .gal--der.rev.ok   { transition-delay: .12s; }
+.js .gal--abajo.rev.ok { transition-delay: .22s; }
+
+@media (max-width: 700px) {
+  .galeria__grilla { grid-template-columns: 1fr; }
+  .gal--abajo img { aspect-ratio: 3 / 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .gal.rev { opacity: 1; transform: none; }
+}
